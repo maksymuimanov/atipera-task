@@ -1,0 +1,4 @@
+spring:
+  application:
+    name: atipera-task
+    version: 1.0
