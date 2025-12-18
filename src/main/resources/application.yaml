@@ -2,3 +2,7 @@ spring:
   application:
     name: atipera-task
     version: 1.0
+github:
+  base-url: https://api.github.com
+  repos-url: ${github.base-url}/users/{username}/repos
+  branches-url: ${github.base-url}/repos/{username}/{repoName}/branches

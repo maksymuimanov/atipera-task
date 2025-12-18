@@ -11,16 +11,16 @@ import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonPropertyOrder({"name", "ownerLogin", "branches"})
-public record GithubRepository(String name,
-                               Boolean fork,
-                               String ownerLogin,
-                               List<GithubBranch> branches) {
+public record GithubRepo(String name,
+                         Boolean fork,
+                         String ownerLogin,
+                         List<GithubBranch> branches) {
     private static final String OWNER_LOGIN_KEY = "login";
 
     @JsonCreator
-    public GithubRepository(@JsonProperty("name") String name,
-                            @JsonProperty("fork") Boolean fork,
-                            @JsonProperty("owner") Map<String, Object> owner) {
+    public GithubRepo(@JsonProperty("name") String name,
+                      @JsonProperty("fork") Boolean fork,
+                      @JsonProperty("owner") Map<String, Object> owner) {
         this(name, fork, owner.get(OWNER_LOGIN_KEY).toString(), new ArrayList<>());
     }
 
