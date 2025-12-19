@@ -33,9 +33,9 @@ public class GithubServiceImpl implements GithubService {
                             .body(new ParameterizedTypeReference<>() {});
                     return new GithubRepo(
                             repo.name(),
-                            repo.fork(),
                             repo.ownerLogin(),
-                            branches != null ? branches : List.of()
+                            branches != null ? branches : List.of(),
+                            repo.fork()
                     );
                 })
                 .toList();
