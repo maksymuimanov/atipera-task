@@ -65,7 +65,7 @@ class GithubRepoControllerTests {
 				.statusCode(HttpStatus.NOT_FOUND.value())
 				.body("$", Matchers.aMapWithSize(2))
 				.body("status", Matchers.equalTo(HttpStatus.NOT_FOUND.value()))
-				.body("message", Matchers.equalTo(UserReposNotFoundException.NOT_FOUND_REASON));
+				.body("message", Matchers.equalTo(UserReposNotFoundException.NOT_FOUND_REASON.formatted("example")));
 	}
 
 	private void stubRepos(String username, String responseBody) {

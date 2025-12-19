@@ -20,7 +20,7 @@ public class GithubServiceImpl implements GithubService {
                 .uri(githubProperties.reposUrl(), username)
                 .retrieve()
                 .onStatus(HttpStatus.NOT_FOUND::isSameCodeAs, (_, _) -> {
-                    throw new UserReposNotFoundException();
+                    throw new UserReposNotFoundException(username);
                 })
                 .body(new ParameterizedTypeReference<>() {});
         if (repositories == null) return List.of();

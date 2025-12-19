@@ -10,7 +10,6 @@ public class WebExceptionHandler {
     @ExceptionHandler(UserReposNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ApiError handleUserReposNotFoundException(UserReposNotFoundException exception) {
-        System.out.println("I am here :DD");
         return new ApiError(HttpStatus.NOT_FOUND.value(), exception.getMessage());
     }
 }
