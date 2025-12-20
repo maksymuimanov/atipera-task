@@ -1,6 +1,11 @@
 package io.maksymuimanov.atiperatask;
 
 final class TestConstants {
+	public static final String EXAMPLE_USERNAME = "example";
+	public static final String GITHUB_USER_REPOS_URL = "/users/%s/repos";
+	public static final String GITHUB_REPO_BRANCHES_URL = "/repos/%s/%s/branches";
+	public static final String EXAMPLE_REPO_1 = "service-api";
+	public static final String EXAMPLE_REPO_2 = "smth";
     public static final String FOUR_REPOS_WITH_FORKS_RESPONSE = """
 			[
 			  {

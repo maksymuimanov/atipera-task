@@ -6,8 +6,8 @@ import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 
 @SpringBootApplication
 @ConfigurationPropertiesScan
-public class AtiperaTaskApplication {
+public class Application {
 	public static void main(String[] args) {
-		SpringApplication.run(AtiperaTaskApplication.class, args);
+		SpringApplication.run(Application.class, args);
 	}
 }

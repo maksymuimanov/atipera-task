@@ -34,9 +34,9 @@ class GithubRepoControllerTests {
 
 	@Test
 	void shouldReturnExistingRepos() {
-		this.stubRepos("example", FOUR_REPOS_WITH_FORKS_RESPONSE);
-		this.stubBranches("example", "service-api", TWO_BRANCHES_RESPONSE);
-		this.stubBranches("example", "smth", ONE_BRANCH_RESPONSE);
+		this.stubRepos(EXAMPLE_USERNAME, FOUR_REPOS_WITH_FORKS_RESPONSE);
+		this.stubBranches(EXAMPLE_USERNAME, EXAMPLE_REPO_1, TWO_BRANCHES_RESPONSE);
+		this.stubBranches(EXAMPLE_USERNAME, EXAMPLE_REPO_2, ONE_BRANCH_RESPONSE);
 
 		RestAssured.given()
 				.when()
@@ -45,18 +45,18 @@ class GithubRepoControllerTests {
 				.statusCode(HttpStatus.OK.value())
 				.body("size()", Matchers.equalTo(2))
 				.body("[0]", Matchers.aMapWithSize(3))
-				.body("[0].name", Matchers.equalTo("service-api"))
-				.body("[0].ownerLogin", Matchers.equalTo("example"))
+				.body("[0].name", Matchers.equalTo(EXAMPLE_REPO_1))
+				.body("[0].ownerLogin", Matchers.equalTo(EXAMPLE_USERNAME))
 				.body("[0].branches.size()", Matchers.equalTo(2))
 				.body("[1]", Matchers.aMapWithSize(3))
-				.body("[1].name", Matchers.equalTo("smth"))
-				.body("[1].ownerLogin", Matchers.equalTo("example"))
+				.body("[1].name", Matchers.equalTo(EXAMPLE_REPO_2))
+				.body("[1].ownerLogin", Matchers.equalTo(EXAMPLE_USERNAME))
 				.body("[1].branches.size()", Matchers.equalTo(1));
 	}
 
 	@Test
 	void shouldReturnNotFound_whenUserDoesNotExist() {
-		this.stubNotFoundRepos("example");
+		this.stubNotFoundRepos(EXAMPLE_USERNAME);
 
 		RestAssured.given()
 				.when()
@@ -65,19 +65,19 @@ class GithubRepoControllerTests {
 				.statusCode(HttpStatus.NOT_FOUND.value())
 				.body("$", Matchers.aMapWithSize(2))
 				.body("status", Matchers.equalTo(HttpStatus.NOT_FOUND.value()))
-				.body("message", Matchers.equalTo(UserReposNotFoundException.NOT_FOUND_REASON.formatted("example")));
+				.body("message", Matchers.equalTo(UserReposNotFoundException.NOT_FOUND_REASON.formatted(EXAMPLE_USERNAME)));
 	}
 
 	private void stubRepos(String username, String responseBody) {
-		this.stubGetUrl("/users/%s/repos".formatted(username), okJson(responseBody));
+		this.stubGetUrl(GITHUB_USER_REPOS_URL.formatted(username), okJson(responseBody));
 	}
 
 	private void stubBranches(String owner, String repoName, String responseBody) {
-		this.stubGetUrl("/repos/%s/%s/branches".formatted(owner, repoName), okJson(responseBody));
+		this.stubGetUrl(GITHUB_REPO_BRANCHES_URL.formatted(owner, repoName), okJson(responseBody));
 	}
 
 	private void stubNotFoundRepos(String username) {
-		this.stubGetNotFoundUrl("/users/%s/repos".formatted(username));
+		this.stubGetNotFoundUrl(GITHUB_USER_REPOS_URL.formatted(username));
 	}
 
 	private void stubGetNotFoundUrl(String urlPattern) {
