@@ -11,18 +11,14 @@ A small Spring Boot 4 application that exposes one API endpoint to list a GitHub
 ## Run locally
 Prerequisites:
 - Java 25
-- Maven 3.9+
+- Maven 3.9+ (Also check if the `JAVA_HOME` environment variable is set correctly, so that Maven can find the JDK 25.)
 
 Build and run:
 ```shell
 # From project root
-start.sh
+./start.sh
 ```
-Or with the Spring Boot Maven plugin:
-```shell
-# From project root
-mvn spring-boot:run
-```
+
 By default the app starts on port 8080. You can then call:
 ```shell
 curl http://localhost:8080/api/v1.0/repos/octocat
